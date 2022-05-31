@@ -8,8 +8,11 @@ import {
   doc,
   onSnapshot
 } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
+
 
 function CustomerHome() {
+    const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [userAnswer, setUserAnswer] = useState(0);
   const usersCollectionRef = collection(db, "users");
@@ -65,7 +68,7 @@ function CustomerHome() {
           </div>
         );
       })}
-    <button>
+    <button onClick={() => navigate('/results')}>
         SUBMIT THE QUIZ !
     </button>
     </div>

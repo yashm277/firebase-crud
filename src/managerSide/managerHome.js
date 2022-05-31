@@ -16,10 +16,14 @@ function ManagerHome() {
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
   const [userAnswer, setUserAnswer] = useState(0);
-  
-
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
+
+function ClearFields() {
+
+    document.getElementById("textfield1").value = "";
+    document.getElementById("textfield2").value = "";
+}
 
   const createUser = async () => {
     await addDoc(usersCollectionRef, { name: newName, age: Number(newAge), userAnswer: Number(userAnswer) });
@@ -90,7 +94,7 @@ function ManagerHome() {
             <button
               onClick={() => {
                 deleteUser(user.id);
-              }}
+              }} 
             >
               {" "}
               Delete Question
@@ -103,3 +107,4 @@ function ManagerHome() {
 }
 
 export default ManagerHome;
+
