@@ -65,6 +65,9 @@ function CustomerHome() {
           </div>
         );
       })}
+    <button>
+        SUBMIT THE QUIZ !
+    </button>
     </div>
   );
 }
