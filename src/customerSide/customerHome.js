@@ -16,7 +16,7 @@ function CustomerHome() {
 
   const updateUser = async (id, age) => {
     const userDoc = doc(db, "users", id);
-    const newFields = { age: age + 1 };
+    const newFields = { userAnswer: userAnswer };
     await updateDoc(userDoc, newFields);
   };
 

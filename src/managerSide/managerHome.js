@@ -14,12 +14,14 @@ import {
 function ManagerHome() {
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
+  const [userAnswer, setUserAnswer] = useState(0);
+  
 
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
   const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
+    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge), userAnswer: Number(userAnswer) });
   };
 
   const updateUser = async (id, age) => {
@@ -57,6 +59,7 @@ function ManagerHome() {
           setNewAge(event.target.value);
         }}
       />
+
 
       <button onClick={createUser}> Create Question</button>
       {users.map((user) => {
