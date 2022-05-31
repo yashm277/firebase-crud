@@ -6,7 +6,7 @@ import {
   getDocs,
   updateDoc,
   doc,
-
+  onSnapshot
 } from "firebase/firestore";
 
 function CustomerHome() {
@@ -20,14 +20,25 @@ function CustomerHome() {
     await updateDoc(userDoc, newFields);
   };
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+//   useEffect(() => {
+//     const getUsers = async () => {
+//       const data = await getDocs(usersCollectionRef);
+//       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+//     };
+//     getUsers();
+//   }, []);
 
-    getUsers();
-  }, []);
+  useEffect(() => {
+    if (usersCollectionRef) {
+        onSnapshot(usersCollectionRef, async () => {
+            const data = await getDocs(usersCollectionRef);
+            setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+        });
+    }
+}, [usersCollectionRef]);
+
+
 
   return (
     <div className="App">

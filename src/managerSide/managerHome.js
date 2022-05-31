@@ -9,6 +9,7 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  onSnapshot
 } from "firebase/firestore";
 
 function ManagerHome() {
@@ -35,14 +36,24 @@ function ManagerHome() {
     await deleteDoc(userDoc);
   };
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+//   useEffect(() => {
+//     const getUsers = async () => {
+//       const data = await getDocs(usersCollectionRef);
+//       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+//     };
 
-    getUsers();
-  }, []);
+//     getUsers();
+//   }, []);
+
+  useEffect(() => {
+    if (usersCollectionRef) {
+        onSnapshot(usersCollectionRef, async () => {
+            const data = await getDocs(usersCollectionRef);
+            setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+        });
+    }
+}, [usersCollectionRef]);
 
   return (
     <div className="App">
