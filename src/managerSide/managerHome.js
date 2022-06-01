@@ -14,7 +14,7 @@ import {
 
 function ManagerHome() {
   const [newName, setNewName] = useState("");
-  const [newAge, setNewAge] = useState(0);
+  const [newAge, setNewAge] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
@@ -23,14 +23,10 @@ function ManagerHome() {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
-function ClearFields() {
-
-    document.getElementById("textfield1").value = "";
-    document.getElementById("textfield2").value = "";
-}
-
   const createUser = async () => {
     await addDoc(usersCollectionRef, { name: newName, age: Number(newAge), userAnswer: Number(userAnswer) });
+    setNewName("");
+    setNewAge("");
   };
 
   const updateUser = async (id, age) => {
@@ -63,8 +59,10 @@ function ClearFields() {
             setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
         });
+        // console.log("Users: ", users);
+        console.log("fired");
     }
-}, [usersCollectionRef]);
+}, []);
 
   return (
     <div className="App">
@@ -74,6 +72,7 @@ function ClearFields() {
         onChange={(event) => {
           setNewName(event.target.value);
         }}
+        value={newName}
       />
       <input
         type="number"
@@ -81,6 +80,7 @@ function ClearFields() {
         onChange={(event) => {
           setNewAge(event.target.value);
         }}
+        value={newAge}
       />
       <input
         placeholder="Option 1..."
