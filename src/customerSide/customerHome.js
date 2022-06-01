@@ -39,7 +39,7 @@ function CustomerHome() {
 
         });
     }
-}, [usersCollectionRef]);
+}, []);
 
 
 
@@ -65,6 +65,25 @@ function CustomerHome() {
               {" "}
               Submit!
             </button>
+          </div>
+        );
+      })}
+      {users.map((user) => {
+        return (
+          <div>
+            {" "}
+            <h1>Question: {user.name}</h1>
+            <h3>Option1: {user.opt1}</h3>
+            <h3>Option2: {user.opt2}</h3>
+            <h3>Option3: {user.opt3}</h3>
+            <h3>Option4: {user.opt4}</h3>
+            <input
+              type="number"
+              placeholder="Your Answer..."
+              onChange={(event) => {
+                setUserAnswer(event.target.value);
+              }}
+            />
           </div>
         );
       })}

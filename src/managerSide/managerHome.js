@@ -15,6 +15,10 @@ import {
 function ManagerHome() {
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
+  const [option3, setOption3] = useState("");
+  const [option4, setOption4] = useState("");
   const [userAnswer, setUserAnswer] = useState(0);
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
@@ -40,6 +44,9 @@ function ClearFields() {
     await deleteDoc(userDoc);
   };
 
+  const createMultipleChoiceQuestion = async () => {
+    await addDoc(usersCollectionRef, { name: newName, opt1: option1, opt2: option2, opt3: option3, opt4: option4,age: Number(newAge), userAnswer: Number(userAnswer) });
+  };
 //   useEffect(() => {
 //     const getUsers = async () => {
 //       const data = await getDocs(usersCollectionRef);
@@ -61,6 +68,49 @@ function ClearFields() {
 
   return (
     <div className="App">
+      <div className="MCQ">
+      <input
+        placeholder="Question..."
+        onChange={(event) => {
+          setNewName(event.target.value);
+        }}
+      />
+      <input
+        type="number"
+        placeholder="Which number option is correct..."
+        onChange={(event) => {
+          setNewAge(event.target.value);
+        }}
+      />
+      <input
+        placeholder="Option 1..."
+        onChange={(event) => {
+          setOption1(event.target.value);
+        }}
+      />
+      <input
+        placeholder="Option 2..."
+        onChange={(event) => {
+          setOption2(event.target.value);
+        }}
+      />
+      <input
+        placeholder="Option 3..."
+        onChange={(event) => {
+          setOption3(event.target.value);
+        }}
+      />
+      <input
+        placeholder="Option 4..."
+        onChange={(event) => {
+          setOption4(event.target.value);
+        }}
+      />
+      <button onClick={createMultipleChoiceQuestion}> Create Question</button>
+      </div>
+
+
+      <div className="numericalquestion">
       <input
         placeholder="Question..."
         onChange={(event) => {
@@ -74,9 +124,9 @@ function ClearFields() {
           setNewAge(event.target.value);
         }}
       />
-
-
       <button onClick={createUser}> Create Question</button>
+      </div>
+
       {users.map((user) => {
         return (
           <div>
@@ -99,6 +149,19 @@ function ClearFields() {
               {" "}
               Delete Question
             </button>
+          </div>
+        );
+      })}
+      {users.map((user) => {
+        return (
+          <div>
+            {" "}
+            <h1>Question: {user.name}</h1>
+            <h1>Correct Option: {user.age}</h1>
+            <h3>Option1: {user.opt1}</h3>
+            <h3>Option2: {user.opt2}</h3>
+            <h3>Option3: {user.opt3}</h3>
+            <h3>Option4: {user.opt4}</h3>
           </div>
         );
       })}
