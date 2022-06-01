@@ -39,7 +39,7 @@ function CustomerHome() {
 
         });
     }
-}, [usersCollectionRef]);
+}, []);
 
 
 
